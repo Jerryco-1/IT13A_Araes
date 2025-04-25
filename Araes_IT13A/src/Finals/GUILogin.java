@@ -4,6 +4,12 @@
  */
 package Finals;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author User
@@ -15,6 +21,8 @@ public class GUILogin extends javax.swing.JFrame {
      */
     public GUILogin() {
         initComponents();
+        setBounds(600, 300, 400, 250);
+        setVisible(true);
     }
 
     /**
@@ -26,21 +34,66 @@ public class GUILogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        jLabelusername = new javax.swing.JLabel();
+        jTextFieldusername = new javax.swing.JTextField();
+        jLabelpassword = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
+        jButtonenter = new javax.swing.JButton();
+        jButtoncancel = new javax.swing.JButton();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.GridLayout(3, 2));
+
+        jLabelusername.setText("Username:");
+        getContentPane().add(jLabelusername);
+        getContentPane().add(jTextFieldusername);
+
+        jLabelpassword.setText("Password:");
+        getContentPane().add(jLabelpassword);
+        getContentPane().add(jPasswordField);
+
+        jButtonenter.setText("ENTER");
+        jButtonenter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonenterActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonenter);
+
+        jButtoncancel.setText("CANCEL");
+        jButtoncancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtoncancelActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtoncancel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonenterActionPerformed
+        String username = jTextFieldusername.getText();
+        String password = new String(jPasswordField.getPassword());
+        
+        credits(username,password);
+    }//GEN-LAST:event_jButtonenterActionPerformed
+    private void credits(String username,String password){
+        try{
+        File file = new File("C:\\users\\User\\Documents\\credentials.txt");
+        
+        BufferedWriter data = new BufferedWriter(new FileWriter(file,true));
+        data.write(username + ", " + password);
+        data.newLine();
+        data.close();
+        }catch (IOException e){
+            JOptionPane.showMessageDialog(this, "Error Saving Account", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void jButtoncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtoncancelActionPerformed
+       jTextFieldusername.setText("");
+       jPasswordField.setText("");
+    }//GEN-LAST:event_jButtoncancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -78,5 +131,11 @@ public class GUILogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtoncancel;
+    private javax.swing.JButton jButtonenter;
+    private javax.swing.JLabel jLabelpassword;
+    private javax.swing.JLabel jLabelusername;
+    private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JTextField jTextFieldusername;
     // End of variables declaration//GEN-END:variables
 }
